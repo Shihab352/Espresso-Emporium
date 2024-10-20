@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
+
 import{ FaEye,FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const CoffeeCard = ({coffee}) => {
+const CoffeeCard = ({coffee , control , setControl}) => {
     const {_id,name , photo , chef , taste} = coffee;
+   
 
     const handleDelete = id =>{
         console.log(id)
@@ -23,10 +25,6 @@ Swal.fire({
     
     fetch(`http://localhost:5000/coffees/${id}`, {
 method: "DELETE",
-// headers: {
-//     "content-type":"application/json"
-// },
-// body : JSON.stringify(id)
     })
     .then(res => res.json())
     .then(data => {
@@ -34,11 +32,14 @@ method: "DELETE",
         if(data.deletedCount > 0){
 Swal.fire({
       title: "Deleted!",
-      text: "Your file has been deleted.",
+      text: "Your file has been deleted successfully.",
       icon: "success"
     
     });
+    const remaining = control.filter(cof => cof._id !== id)
+    setControl(remaining);
         }
+       
     })
   }
 });
@@ -51,7 +52,7 @@ Swal.fire({
     <img
     className="w-[150px] h-[240px] mx-auto "
       src={photo}
-      alt="Movie" />
+      alt="Coffee" />
   </figure>
   <div className=" space-y-3 items-center p-5 justify-between ">
     <div>
@@ -63,7 +64,7 @@ Swal.fire({
     
     <div className=" space-x-3">
       <Link to={`/coffeeDetails/singleCoffee/${_id}`}><button className="text-lg bg-[#a49066] p-2 text-white"><FaEye /></button></Link>
-      <button className="text-lg  bg-[#2e2d2b] p-2 text-white"><FaEdit /></button>
+      <Link to={`/updateCoffee/${_id}`}><button className="text-lg  bg-[#2e2d2b] p-2 text-white"><FaEdit /></button></Link>
       <button onClick={()=>handleDelete(_id)} className=" text-lg bg-[#7e2715] p-2 text-white"><MdDelete /></button>
     </div>
   </div>

@@ -6,6 +6,7 @@ import background from "../assets/more/1.png"
 
 const AllCoffees = () => {
     const [coffees , setCoffees] = useState([]);
+    const [control , setControl] = useState(coffees);
 useEffect(()=>{
     fetch("http://localhost:5000/coffees")
     .then(res => res.json())
@@ -24,7 +25,12 @@ useEffect(()=>{
            </Link>
            <div className="w-10/12 mx-auto grid md:grid-cols-2 gap-5">
 {
-    coffees.map(coffee => <CoffeeCard key={coffee._id} coffee={coffee}></CoffeeCard>)
+    coffees.map(coffee => <CoffeeCard 
+    key={coffee._id} 
+    coffee={coffee}
+    control={control}
+    setControl={setControl}
+    ></CoffeeCard>)
 }
            </div>
         </div>

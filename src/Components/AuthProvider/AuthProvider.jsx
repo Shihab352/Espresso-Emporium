@@ -4,6 +4,8 @@ import auth from '../../Firebase/firebase.config'
 
 export const AuthContext = createContext(null);
 
+
+// eslint-disable-next-line react/prop-types
 const AuthProvider = ({children}) => {
     // Social Media provider
     const googleProvider = new GoogleAuthProvider();

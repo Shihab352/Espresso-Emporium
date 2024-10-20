@@ -1,9 +1,10 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook , FaGithub} from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../Components/AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 
 
@@ -25,7 +26,30 @@ const Register = () => {
 
         // Create User and Update Profile
         createUser(email,password)
-        .then(()=> {
+        .then((result)=> {
+          console.log(result.user);
+          const createdAt = result.user?.metadata?.creationTime
+          const user = {email, createdAt : createdAt};
+          
+          fetch('http://localhost:5000/users', {
+            method : "POST",
+            headers: {
+              "content-type":"application/json"
+            },
+            body:JSON.stringify(user)
+          })
+          .then(res => res.json())
+          .then(data=>{
+            console.log(data);
+            if(data.insertedId){
+              Swal.fire({
+                title: 'Success!',
+                text: 'User Created Successfully',
+                icon: 'success',
+                confirmButtonText: 'Close'
+              })
+            }
+          })
         updateUserProfile(name , photoURL)
         .then(()=>{
         
@@ -35,7 +59,7 @@ const Register = () => {
             
           })
         .catch(error => {
-            console.log(error)
+            console.error(error)
         })
       }
       const handleSocialLogin = socialProvider => {

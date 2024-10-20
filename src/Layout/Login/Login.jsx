@@ -22,6 +22,25 @@ const Login = () => {
     const { email,password} = data;
     signInUser(email,password)
     .then(res => {
+      const user = {
+        email , 
+        lastLoggedAt : res.user?.metadata?.lastSignInTime
+      }
+
+      // Update Last Logged At in the database
+
+      fetch('http://localhost:5000/users', {
+        method:'PATCH',
+        headers:{
+          "content-type" : "application/JSON"
+        },
+        body:JSON.stringify(user)
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      })
+
       if(res.user){
         navigate(location?.state || '/');
       }

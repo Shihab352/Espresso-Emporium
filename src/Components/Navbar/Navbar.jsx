@@ -12,10 +12,11 @@ const Navbar = () => {
 
     const navLink = <>
     
-    <li className="text-lg text-white "> <NavLink className="bg-black" to={'/'}><a>Homepage</a></NavLink> </li>
-    <li className="text-lg text-white "> <NavLink className="bg-black" to={'/addCoffees'}><a>Add Coffee</a></NavLink> </li>
-    <li className="text-lg text-white "> <NavLink className="bg-black" to={'/myCart'}><a>My Cart</a></NavLink> </li>
-    <li className="text-lg text-white "> <NavLink className="bg-black" to={'/login'}><a>Login</a></NavLink> </li>
+    <li className="text-lg text-white "> <NavLink className="bg-black" to={'/'}>Homepage</NavLink> </li>
+    <li className="text-lg text-white "> <NavLink className="bg-black" to={'/addCoffees'}>AddCoffee</NavLink> </li>
+    <li className="text-lg text-white "> <NavLink className="bg-black" to={'/myCart'}>My Cart</NavLink> </li>
+    <li className="text-lg text-white "> <NavLink className="bg-black" to={'/login'}>Login</NavLink> </li>
+    <li className="text-lg text-white "> <NavLink className="bg-black" to={'/users'}>Users</NavLink> </li>
 
     
         
